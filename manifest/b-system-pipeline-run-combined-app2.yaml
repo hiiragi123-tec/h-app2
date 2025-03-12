@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: b-system-pipeline-combined-app2- #pipeline-run name
+  namespace: b-system-cicd-demo #namespace
+spec:
+  params:
+    - name: IMAGE_NAME
+      value: 'jp.icr.io/cti-roks-training/b-sys-combined-app2:latest'
+    - name: GIT_REPO
+      value: 'https://github.com/cti-roks/b-system-combined-app2.git'
+    - name: GIT_REVISION
+      value: main
+  pipelineRef:
+    name:  b-system-pipeline-combined-app2
+  workspaces:
+    - name: workspace
+      persistentVolumeClaim:
+        claimName: sample-pvc-1
