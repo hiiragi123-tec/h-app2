@@ -5,6 +5,6 @@ const server = http.createServer((req, res) => {
   res.end('Hello! CTI!!from b-system-combined-app2-logs');
 });
 
-server.listen(8082, () => {
+server.listen(8085, () => {
   console.log('Server is running at http://localhost:8081');
 });
