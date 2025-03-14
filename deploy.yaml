@@ -1,26 +1,26 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: b-system-app-combined
+  name: b-system-app-combined-h
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: b-system-app-combined
+      app: b-system-app-combined-h
   template:
     metadata:
       labels:
-        app: b-system-app-combined
+        app: b-system-app-combined-h
     spec:
       containers:
-        - name: b-system-combined-app1
-          image: jp.icr.io/cti-roks-training/b-sys-combined-app1:latest  # app1のパイプラインで更新される
+        - name: b-system-combined-app1-h
+          image: jp.icr.io/cti-roks-training/b-sys-combined-app1-h:latest  # app1のパイプラインで更新される
           ports:
             - name: http-app1
               containerPort: 8080
               protocol: TCP
-        - name: b-system-combined-app2
-          image: jp.icr.io/cti-roks-training/b-sys-combined-app2:latest  # app2のパイプラインで更新される
+        - name: b-system-combined-app2-h
+          image: jp.icr.io/cti-roks-training/b-sys-combined-app2-h:latest  # app2のパイプラインで更新される
           ports:
             - name: http-app2
               containerPort: 8085
@@ -31,7 +31,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: b-system-app-combined
+  name: b-system-app-combined-h
 spec:
   ports:
     - name: http-app1
@@ -43,16 +43,16 @@ spec:
       protocol: TCP
       targetPort: 8085
   selector:
-    app: b-system-app-combined
+    app: b-system-app-combined-h
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: b-system-combined-app1
+  name: b-system-combined-app1-h
 spec:
   to:
     kind: Service
-    name: b-system-app-combined
+    name: b-system-app-combined-h
   tls:
     termination: edge
   port:
@@ -61,11 +61,11 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: b-system-combined-app2
+  name: b-system-combined-app2-h
 spec:
   to:
     kind: Service
-    name: b-system-app-combined
+    name: b-system-app-combined-h
   tls:
     termination: edge
   port:
